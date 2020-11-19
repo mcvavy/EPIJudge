@@ -6,9 +6,14 @@ from test_framework.test_failure import PropertyName, TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def rearrange(A: List[int]) -> None:
-    # TODO - you fill in here.
-    return
+def rearrange(A: List[int]) -> List[int]:
+    for i in range(len(A) - 1):
+        if i % 2 == 0 and A[i] > A[i + 1]:
+            A[i],A[i+1] = A[i+1], A[i]
+        elif i % 2 != 0 and A[i] < A[i + 1]:
+            A[i],A[i+1] = A[i+1], A[i]
+    
+#         A[i:i+2] = sorted(A[i:i+2], reverse = i % 2)
 
 
 @enable_executor_hook
