@@ -7,11 +7,17 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
-
+import random
 def random_subset(n: int, k: int) -> List[int]:
-    # TODO - you fill in here.
-    return []
-
+    H = {}
+    for i in range(k):
+        r = random.randint(i, n - 1)
+        i_val = H.get(i,i)
+        r_val = H.get(r,r)
+        H[i] = r_val
+        H[r] = i_val
+    
+    return [H[x] for x in range(k)]
 
 @enable_executor_hook
 def random_subset_wrapper(executor, n, k):

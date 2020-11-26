@@ -3,13 +3,38 @@ from test_framework.test_failure import TestFailure
 
 
 def int_to_string(x: int) -> str:
-    # TODO - you fill in here.
-    return '0'
+    if x < 10 and x > 0:
+        return str(x)
+    
+    sign = '-' if x < 0 else ''
+    x = abs(x)
+    
+    res = []
+    while True:
+        res.append(str(x % 10))
+        x //= 10
+        if x == 0:
+            break
 
-
+    return sign + ''.join(reversed(res))
+    
+    
 def string_to_int(s: str) -> int:
-    # TODO - you fill in here.
-    return 0
+    sign = 1
+    if s[0] == '-':
+        sign = -1
+        s = s[1:]
+    
+    if s[0] == '+':
+        s = s[1:]
+    
+    n = len(s)
+    
+    res = 0
+    for i in range(n):
+        res = res * 10 + int(s[i])
+
+    return res * sign
 
 
 def wrapper(x, s):
