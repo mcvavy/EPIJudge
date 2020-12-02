@@ -22,8 +22,7 @@ def is_linked_list_a_palindrome(L: ListNode) -> bool:
         fast = fast.next.next
         slow = slow.next
 
-    slow_it = reverse_linked_list(slow)
-    fast_it = L
+    slow_it = reverse_linked_list(slow); fast_it = L
     while slow_it and fast_it:
         if slow_it.data != fast_it.data:
             return False
