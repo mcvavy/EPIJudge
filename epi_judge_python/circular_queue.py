@@ -3,21 +3,68 @@ from test_framework.test_failure import TestFailure
 
 
 class Queue:
+    SCALE_FACTOR = 2
     def __init__(self, capacity: int) -> None:
-        # TODO - you fill in here.
-        return
+        self.queue = [None] * capacity
+        self.front = self.rear = -1
+        self.queue_size = 0
 
     def enqueue(self, x: int) -> None:
-        # TODO - you fill in here.
-        return
+        if self.is_empty:
+            self.front = self.rear = 0
+            self.queue[self.rear] = x
+            self.queue_size += 1
+        elif self.is_full:
+            self.__resize()
+            self.rear = (self.rear + 1)%len(self.queue)
+            self.queue[self.rear] = x
+            self.queue_size += 1
+        else:
+            self.rear = (self.rear + 1)%len(self.queue)
+            self.queue[self.rear] = x
+            self.queue_size += 1
 
     def dequeue(self) -> int:
-        # TODO - you fill in here.
-        return 0
-
+        res = -1
+        if self.is_empty:
+            raise IndexError("empty queue")
+        elif self.front == self.rear:
+            res = self.queue[self.front]
+            self.front = self.rear = -1
+            self.queue_size -= 1
+        else:
+            res = self.queue[self.front]
+            self.front = (self.front + 1)%len(self.queue)
+            self.queue_size -= 1
+        return res
+            
     def size(self) -> int:
-        # TODO - you fill in here.
-        return 0
+        return self.queue_size
+    
+    @property
+    def is_full(self):
+        return (self.rear + 1)%len(self.queue) == self.front
+    
+    @property
+    def is_empty(self):
+        return self.front == -1 and self.rear == -1
+    
+    def __resize(self):
+        temp_queue = [None] * (self.queue_size * self.SCALE_FACTOR)
+        j = self.front
+        i = 0
+        
+        while True:
+            temp_queue[i] = self.queue[j]
+            i += 1
+            j = (j + 1) % len(self.queue)
+            
+            if(j == self.front):
+                break
+        
+        self.front = 0
+        self.rear = len(self.queue) - 1
+        self.queue = temp_queue
 
 
 def queue_tester(ops):

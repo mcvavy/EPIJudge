@@ -4,8 +4,13 @@ from test_framework import generic_test
 
 
 def examine_buildings_with_sunset(sequence: Iterator[int]) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    res_stack = []
+    
+    for index, building in enumerate(sequence):
+        while res_stack and building >= res_stack[-1][1]:
+            res_stack.pop()
+        res_stack.append((index, building))
+    return [x[0] for x in reversed(res_stack)]
 
 
 def examine_buildings_with_sunset_wrapper(sequence):

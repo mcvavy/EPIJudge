@@ -5,8 +5,18 @@ from test_framework import generic_test
 
 
 def binary_tree_depth_order(tree: BinaryTreeNode) -> List[List[int]]:
-    # TODO - you fill in here.
-    return []
+    if not tree:
+        return []
+    
+    res = []
+    queue = [tree]
+    
+    while queue:
+        res.append([node.data for node in queue])
+        
+        queue = [child for curr in queue for child in [curr.left, curr.right] if child]
+    
+    return res
 
 
 if __name__ == '__main__':
