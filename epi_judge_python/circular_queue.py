@@ -43,7 +43,7 @@ class Queue:
     
     @property
     def is_full(self):
-        return (self.rear + 1)%len(self.queue) == self.front
+        return self.queue_size == len(self.queue)
     
     @property
     def is_empty(self):
