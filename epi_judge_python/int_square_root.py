@@ -2,8 +2,17 @@ from test_framework import generic_test
 
 
 def square_root(k: int) -> int:
-    # TODO - you fill in here.
-    return 0
+    start = 0;  end = k
+    
+    while start <= end:
+        mid = (start + end)//2
+        
+        square = mid**2
+        if square <= k:
+            start = mid + 1
+        else:
+            end = mid - 1
+    return start - 1
 
 
 if __name__ == '__main__':

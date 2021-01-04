@@ -5,8 +5,16 @@ from test_framework import generic_test, test_utils
 
 
 def find_k_largest_in_bst(tree: BstNode, k: int) -> List[int]:
-    # TODO - you fill in here.
-    return []
+    def k_largest(tree):
+        if tree and len(k_largest_elements) < k:
+            k_largest(tree.right)
+            if len(k_largest_elements) < k:
+                k_largest_elements.append(tree.data)
+                k_largest(tree.left)
+        
+    k_largest_elements = []
+    k_largest(tree)
+    return k_largest_elements
 
 
 if __name__ == '__main__':

@@ -8,9 +8,17 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def create_list_of_leaves(tree: BinaryTreeNode) -> List[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return []
-
+    def getLeafNode(tree, result):
+        if not tree:
+            return None
+        if not tree.left and not tree.right:
+            result.append(tree)
+        getLeafNode(tree.left, result)
+        getLeafNode(tree.right, result)
+        
+    result = []
+    getLeafNode(tree, result)
+    return result
 
 @enable_executor_hook
 def create_list_of_leaves_wrapper(executor, tree):

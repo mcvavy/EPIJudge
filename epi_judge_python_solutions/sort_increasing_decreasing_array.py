@@ -1,7 +1,7 @@
 import itertools
 from typing import List
 
-from sorted_arrays_merge import merge_sorted_arrays
+
 from test_framework import generic_test
 
 

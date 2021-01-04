@@ -9,8 +9,50 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def solve_sudoku(partial_assignment: List[List[int]]) -> bool:
-    # TODO - you fill in here.
-    return True
+    def find_empty(grid):
+        for row in range(len(grid)):
+            for column in range(len(grid[0])):
+                if grid[row][column] == 0:
+                    return (row, column)
+        return None
+
+    def isCellPossible(grid, row, column, val):
+        # Check row
+        for col in range(9):
+            if grid[row][col] == val:
+                return False
+        # Check Column
+        for rw in range(9):
+            if grid[rw][column] == val:
+                return False
+        # Check cell
+        row0 = (row//3)*3
+        col0 = (column//3)*3
+
+        for r in range(3):
+            for c in range(3):
+                if grid[r+row0][c+col0] == val:
+                    return False
+        return True
+    
+    def bt(grid):
+        find = find_empty(grid)
+
+        if not find:
+            return True
+        else:
+            row, column = find
+
+        for i in range(1, 10):
+            if isCellPossible(grid, row, column, i):
+                grid[row][column] = i
+
+                if bt(grid):
+                    return True
+                grid[row][column] = 0
+        return False
+
+    return bt(partial_assignment)
 
 
 def assert_unique_seq(seq):

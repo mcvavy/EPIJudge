@@ -10,8 +10,14 @@ from test_framework.test_utils import enable_executor_hook
 
 # Input nodes are nonempty and the key at s is less than or equal to that at b.
 def find_lca(tree: BstNode, s: BstNode, b: BstNode) -> Optional[BstNode]:
-    # TODO - you fill in here.
-    return None
+    if not tree:
+        return None
+    if s.data <= tree.data <= b.data:
+        return tree
+    if tree.data > max(s.data , b.data):
+        return find_lca(tree.left, s, b)
+    elif tree.data < min(s.data , b.data):
+        return find_lca(tree.right, s, b)
 
 
 @enable_executor_hook
